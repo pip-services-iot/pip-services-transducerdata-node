@@ -2,17 +2,17 @@ import { DataPage } from 'pip-services3-commons-node';
 import { FilterParams } from 'pip-services3-commons-node';
 import { PagingParams } from 'pip-services3-commons-node';
 
-import { TransducerDataV1 } from '../data/version1/TransducerDataV1';
-import { TransducerDataSetV1 } from '../data/version1/TransducerDataSetV1';
+import { ObjectDataV1 } from '../data/version1/ObjectDataV1';
+import { ObjectDataSetV1 } from '../data/version1/ObjectDataSetV1';
 
 export interface ITransducerDataController {
     getData(correlationId: string, filter: FilterParams, paging: PagingParams, 
-        callback: (err: any, page: DataPage<TransducerDataSetV1>) => void): void;
+        callback: (err: any, page: DataPage<ObjectDataSetV1>) => void): void;
 
-    addData(correlationId: string, data: TransducerDataV1,
+    addData(correlationId: string, data: ObjectDataV1,
         callback?: (err: any) => void): void;
 
-    addDataBatch(correlationId: string, data: TransducerDataV1[],
+    addDataBatch(correlationId: string, data: ObjectDataV1[],
         callback?: (err: any) => void): void;
             
     deleteData(correlationId: string, filter: FilterParams,

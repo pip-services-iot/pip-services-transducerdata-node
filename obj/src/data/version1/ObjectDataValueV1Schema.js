@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const pip_services3_commons_node_1 = require("pip-services3-commons-node");
 const pip_services3_commons_node_2 = require("pip-services3-commons-node");
-class TransducerDataValueV1Schema extends pip_services3_commons_node_1.ObjectSchema {
+class ObjectDataValueV1Schema extends pip_services3_commons_node_1.ObjectSchema {
     constructor() {
         super();
         this.withRequiredProperty('id', pip_services3_commons_node_2.TypeCode.Integer);
@@ -10,5 +10,5 @@ class TransducerDataValueV1Schema extends pip_services3_commons_node_1.ObjectSch
         this.withRequiredProperty('val', pip_services3_commons_node_2.TypeCode.Float);
     }
 }
-exports.TransducerDataValueV1Schema = TransducerDataValueV1Schema;
-//# sourceMappingURL=TransducerDataValueV1Schema.js.map
+exports.ObjectDataValueV1Schema = ObjectDataValueV1Schema;
+//# sourceMappingURL=ObjectDataValueV1Schema.js.map

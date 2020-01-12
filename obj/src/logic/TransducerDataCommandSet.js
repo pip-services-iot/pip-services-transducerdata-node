@@ -8,7 +8,7 @@ const pip_services3_commons_node_5 = require("pip-services3-commons-node");
 const pip_services3_commons_node_6 = require("pip-services3-commons-node");
 const pip_services3_commons_node_7 = require("pip-services3-commons-node");
 const pip_services3_commons_node_8 = require("pip-services3-commons-node");
-const TransducerDataV1Schema_1 = require("../data/version1/TransducerDataV1Schema");
+const ObjectDataV1Schema_1 = require("../data/version1/ObjectDataV1Schema");
 class TransducerDataCommandSet extends pip_services3_commons_node_1.CommandSet {
     constructor(logic) {
         super();
@@ -30,7 +30,7 @@ class TransducerDataCommandSet extends pip_services3_commons_node_1.CommandSet {
     }
     makeAddDataCommand() {
         return new pip_services3_commons_node_2.Command("add_data", new pip_services3_commons_node_5.ObjectSchema(true)
-            .withRequiredProperty('data', new TransducerDataV1Schema_1.TransducerDataV1Schema()), (correlationId, args, callback) => {
+            .withRequiredProperty('data', new ObjectDataV1Schema_1.ObjectDataV1Schema()), (correlationId, args, callback) => {
             let data = args.get("data");
             this._logic.addData(correlationId, data, (err) => {
                 if (callback)
@@ -40,7 +40,7 @@ class TransducerDataCommandSet extends pip_services3_commons_node_1.CommandSet {
     }
     makeAddDataBatchCommand() {
         return new pip_services3_commons_node_2.Command("add_data_batch", new pip_services3_commons_node_5.ObjectSchema(true)
-            .withRequiredProperty('data', new pip_services3_commons_node_6.ArraySchema(new TransducerDataV1Schema_1.TransducerDataV1Schema())), (correlationId, args, callback) => {
+            .withRequiredProperty('data', new pip_services3_commons_node_6.ArraySchema(new ObjectDataV1Schema_1.ObjectDataV1Schema())), (correlationId, args, callback) => {
             let data = args.get("data");
             this._logic.addDataBatch(correlationId, data, (err) => {
                 if (callback)

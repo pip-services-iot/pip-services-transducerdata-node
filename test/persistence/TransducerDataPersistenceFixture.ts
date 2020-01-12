@@ -5,7 +5,7 @@ let assert = require('chai').assert;
 import { FilterParams } from 'pip-services3-commons-node';
 import { PagingParams } from 'pip-services3-commons-node';
 
-import { TransducerDataSetV1 } from '../../src/data/version1/TransducerDataSetV1';
+import { ObjectDataSetV1 } from '../../src/data/version1/ObjectDataSetV1';
 
 import { ITransducerDataPersistence } from '../../src/persistence/ITransducerDataPersistence';
 
@@ -48,7 +48,7 @@ export class TransducerDataPersistenceFixture {
     }
                 
     public testCrudOperations(done) {
-        let data1: TransducerDataSetV1;
+        let data1: ObjectDataSetV1;
 
         async.series([
         // Create items

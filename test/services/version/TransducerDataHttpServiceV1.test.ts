@@ -7,7 +7,7 @@ import { ConfigParams } from 'pip-services3-commons-node';
 import { Descriptor } from 'pip-services3-commons-node';
 import { References } from 'pip-services3-commons-node';
 
-import { TransducerDataSetV1 } from '../../../src/data/version1/TransducerDataSetV1';
+import { ObjectDataSetV1 } from '../../../src/data/version1/ObjectDataSetV1';
 import { TransducerDataMemoryPersistence } from '../../../src/persistence/TransducerDataMemoryPersistence';
 import { TransducerDataController } from '../../../src/logic/TransducerDataController';
 import { TransducerDataHttpServiceV1 } from '../../../src/services/version1/TransducerDataHttpServiceV1';
@@ -61,7 +61,7 @@ suite('TransducerDataHttpServiceV1', ()=> {
     
     
     test('CRUD Operations', (done) => {
-        let data1: TransducerDataSetV1;
+        let data1: ObjectDataSetV1;
 
         async.series([
         // Create one data

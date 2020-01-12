@@ -5,8 +5,8 @@ import { ConfigParams } from 'pip-services3-commons-node';
 import { Descriptor } from 'pip-services3-commons-node';
 import { References } from 'pip-services3-commons-node';
 
-import { TransducerDataV1 } from '../src/data/version1/TransducerDataV1';
-import { TransducerDataSetV1 } from '../src/data/version1/TransducerDataSetV1';
+import { ObjectDataV1 } from '../src/data/version1/ObjectDataV1';
+import { ObjectDataSetV1 } from '../src/data/version1/ObjectDataSetV1';
 import { TransducerDataMongoDbPersistence } from '../src/persistence/TransducerDataMongoDbPersistence';
 import { TransducerDataController } from '../src/logic/TransducerDataController';
 
@@ -125,7 +125,7 @@ export class AddMongoDbDataBenchmark extends Benchmark {
     // }
 
     public execute(callback: (err: any) => void): void {
-        let data: TransducerDataV1[] = [];
+        let data: ObjectDataV1[] = [];
 
         for (let orgId = 1; orgId <= this._orgNumber; orgId++) {
             for (let objectId = 1; objectId <= this._objectNumber; objectId++) {

@@ -7,14 +7,14 @@ import { DataPage } from 'pip-services3-commons-node';
 import { IdGenerator } from 'pip-services3-commons-node';
 import { IdentifiableMemoryPersistence } from 'pip-services3-data-node';
 
-import { TransducerDataValueV1 } from '../data/version1/TransducerDataValueV1';
-import { TransducerDataV1 } from '../data/version1/TransducerDataV1';
-import { TransducerDataSetV1 } from '../data/version1/TransducerDataSetV1';
-import { TransducerDataSetValueV1 } from '../data/version1/TransducerDataSetValueV1';
+import { ObjectDataValueV1 } from '../data/version1/ObjectDataValueV1';
+import { ObjectDataV1 } from '../data/version1/ObjectDataV1';
+import { ObjectDataSetV1 } from '../data/version1/ObjectDataSetV1';
+import { ObjectDataSetValueV1 } from '../data/version1/ObjectDataSetValueV1';
 import { ITransducerDataPersistence } from './ITransducerDataPersistence';
 
 export class TransducerDataMemoryPersistence 
-    extends IdentifiableMemoryPersistence<TransducerDataSetV1, string> 
+    extends IdentifiableMemoryPersistence<ObjectDataSetV1, string> 
     implements ITransducerDataPersistence {
 
     constructor() {
@@ -64,14 +64,14 @@ export class TransducerDataMemoryPersistence
     }
 
     private filterResults(filter: FilterParams,
-        callback: (err: any, page: DataPage<TransducerDataSetV1>) => void): any {
+        callback: (err: any, page: DataPage<ObjectDataSetV1>) => void): any {
 
         filter = filter || new FilterParams();
         
         let fromTime = filter.getAsNullableDateTime('from_time');
         let toTime = filter.getAsNullableDateTime('to_time');
         
-        return (err: any, page: DataPage<TransducerDataSetV1>) => {
+        return (err: any, page: DataPage<ObjectDataSetV1>) => {
             // Skip when error occured
             if (err != null || page == null) {
                 callback(err, page);
@@ -91,12 +91,12 @@ export class TransducerDataMemoryPersistence
     }
     
     public getPageByFilter(correlationId: string, filter: FilterParams, paging: PagingParams,
-        callback: (err: any, page: DataPage<TransducerDataSetV1>) => void): void {
+        callback: (err: any, page: DataPage<ObjectDataSetV1>) => void): void {
         super.getPageByFilter(correlationId, this.composeFilter(filter),
             paging, null, null, this.filterResults(filter, callback));
     }
     
-    public addOne(correlationId: string, data: TransducerDataSetV1,
+    public addOne(correlationId: string, data: ObjectDataSetV1,
         callback: (err: any) => void): void {
 
         let item = this._items.find((x) => { 
@@ -107,7 +107,7 @@ export class TransducerDataMemoryPersistence
         });
 
         if (item == null) {
-            item = <TransducerDataSetV1> {
+            item = <ObjectDataSetV1> {
                 id: IdGenerator.nextLong(),
                 org_id: data.org_id,
                 object_id: data.object_id,
@@ -127,7 +127,7 @@ export class TransducerDataMemoryPersistence
         });
     }
 
-    public addBatch(correlationId: string, data: TransducerDataSetV1[],
+    public addBatch(correlationId: string, data: ObjectDataSetV1[],
         callback: (err: any) => void): void {
 
         async.each(data, (d, callback) => {

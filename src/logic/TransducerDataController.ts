@@ -16,12 +16,12 @@ import { CommandSet } from 'pip-services3-commons-node';
 import { DateTimeConverter } from 'pip-services3-commons-node';
 import { IntegerConverter } from 'pip-services3-commons-node';
 
-import { TransducerDataV1 } from '../data/version1/TransducerDataV1';
-import { TransducerDataSetV1 } from '../data/version1/TransducerDataSetV1';
+import { ObjectDataV1 } from '../data/version1/ObjectDataV1';
+import { ObjectDataSetV1 } from '../data/version1/ObjectDataSetV1';
 import { ITransducerDataPersistence } from '../persistence/ITransducerDataPersistence';
 import { ITransducerDataController } from './ITransducerDataController';
 import { TransducerDataCommandSet } from './TransducerDataCommandSet';
-import { TransducerDataValueV1 } from '../data/version1';
+import { ObjectDataValueV1 } from '../data/version1';
 
 export class TransducerDataController implements  IConfigurable, IReferenceable, ICommandable, ITransducerDataController {
     private static _defaultConfig: ConfigParams = ConfigParams.fromTuples(
@@ -71,15 +71,15 @@ export class TransducerDataController implements  IConfigurable, IReferenceable,
         return value;
     }
 
-    private filterValuesByIds(values: TransducerDataValueV1[], ids: number[]) {
+    private filterValuesByIds(values: ObjectDataValueV1[], ids: number[]) {
         return _.filter(values, v => _.indexOf(ids, v.id) >= 0);
     }
 
-    private filterValuesByTypes(values: TransducerDataValueV1[], types: number[]) {
+    private filterValuesByTypes(values: ObjectDataValueV1[], types: number[]) {
         return _.filter(values, v => _.indexOf(types, v.type) >= 0);
     }
 
-    private filterDataValues(data: TransducerDataSetV1[], filter: FilterParams): void {
+    private filterDataValues(data: ObjectDataSetV1[], filter: FilterParams): void {
         if (filter == null) return;
 
         let paramIds = this.getFilterArrayParam(filter, 'param_id', 'param_ids');
@@ -120,7 +120,7 @@ export class TransducerDataController implements  IConfigurable, IReferenceable,
     }
 
     public getData(correlationId: string, filter: FilterParams, paging: PagingParams, 
-        callback: (err: any, page: DataPage<TransducerDataSetV1>) => void): void {
+        callback: (err: any, page: DataPage<ObjectDataSetV1>) => void): void {
         this._persistence.getPageByFilter(correlationId, filter, paging, (err, page) => {
             if (page && page.data)
                 this.filterDataValues(page.data, filter);
@@ -146,12 +146,12 @@ export class TransducerDataController implements  IConfigurable, IReferenceable,
         return new Date(dayStartUtc + offset);
     }
 
-    private fixData(data: TransducerDataV1): TransducerDataV1 {
+    private fixData(data: ObjectDataV1): ObjectDataV1 {
         data.time = DateTimeConverter.toDateTime(data.time);
         return data;
     }
 
-    public addData(correlationId: string, data: TransducerDataV1,
+    public addData(correlationId: string, data: ObjectDataV1,
         callback?: (err: any) => void): void {
 
         data = this.fixData(data);
@@ -159,7 +159,7 @@ export class TransducerDataController implements  IConfigurable, IReferenceable,
         let startTime: Date = this.calculateStartTime(data.time);
         let endTime: Date = new Date(startTime.getTime() + this._interval);
 
-        let dataSet: TransducerDataSetV1 = {
+        let dataSet: ObjectDataSetV1 = {
             id: null,
             org_id: data.org_id,
             object_id: data.object_id,
@@ -178,7 +178,7 @@ export class TransducerDataController implements  IConfigurable, IReferenceable,
         this._persistence.addOne(correlationId, dataSet, callback);
     }
 
-    public addDataBatch(correlationId: string, data: TransducerDataV1[],
+    public addDataBatch(correlationId: string, data: ObjectDataV1[],
         callback?: (err: any) => void): void {
         
         if (data == null || data.length == 0) {
@@ -186,7 +186,7 @@ export class TransducerDataController implements  IConfigurable, IReferenceable,
             return;
         }
 
-        let dataSets: TransducerDataSetV1[] = [];
+        let dataSets: ObjectDataSetV1[] = [];
         
         for (let dataItem of data) {
             dataItem = this.fixData(dataItem);
@@ -195,7 +195,7 @@ export class TransducerDataController implements  IConfigurable, IReferenceable,
             let startTime = this.calculateStartTime(time);
             let endTime = new Date(startTime.getTime() + this._interval);
 
-            let dataSet: TransducerDataSetV1 = {
+            let dataSet: ObjectDataSetV1 = {
                 id: null,
                 org_id: dataItem.org_id,
                 object_id: dataItem.object_id,

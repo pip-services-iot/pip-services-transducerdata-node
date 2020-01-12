@@ -6,13 +6,13 @@ import { DataPage } from 'pip-services3-commons-node';
 import { IdGenerator } from 'pip-services3-commons-node';
 import { IdentifiableMongoDbPersistence } from 'pip-services3-mongodb-node';
 
-import { TransducerDataValueV1 } from '../data/version1/TransducerDataValueV1';
-import { TransducerDataV1 } from '../data/version1/TransducerDataV1';
-import { TransducerDataSetV1 } from '../data/version1/TransducerDataSetV1';
+import { ObjectDataValueV1 } from '../data/version1/ObjectDataValueV1';
+import { ObjectDataV1 } from '../data/version1/ObjectDataV1';
+import { ObjectDataSetV1 } from '../data/version1/ObjectDataSetV1';
 import { ITransducerDataPersistence } from './ITransducerDataPersistence';
 
 export class TransducerDataMongoDbPersistence
-    extends IdentifiableMongoDbPersistence<TransducerDataSetV1, string>
+    extends IdentifiableMongoDbPersistence<ObjectDataSetV1, string>
     implements ITransducerDataPersistence {
 
     constructor() {
@@ -53,14 +53,14 @@ export class TransducerDataMongoDbPersistence
     }
 
     private filterResults(filter: FilterParams,
-        callback: (err: any, page: DataPage<TransducerDataSetV1>) => void): any {
+        callback: (err: any, page: DataPage<ObjectDataSetV1>) => void): any {
         filter = filter || new FilterParams();
 
         let fromTime = filter.getAsNullableDateTime('from_time');
         let toTime = filter.getAsNullableDateTime('to_time');
         let bigPeriod = filter.getAsNullableBoolean('big_period');
 
-        return (err: any, page: DataPage<TransducerDataSetV1>) => {
+        return (err: any, page: DataPage<ObjectDataSetV1>) => {
             // Skip for better performance when get big amount of data
             if (bigPeriod) {
                 callback(err, page);
@@ -85,12 +85,12 @@ export class TransducerDataMongoDbPersistence
     }
 
     public getPageByFilter(correlationId: string, filter: FilterParams, paging: PagingParams,
-        callback: (err: any, page: DataPage<TransducerDataSetV1>) => void): void {
+        callback: (err: any, page: DataPage<ObjectDataSetV1>) => void): void {
         super.getPageByFilter(correlationId, this.composeFilter(filter),
             paging, "-start_time", null, this.filterResults(filter, callback));
     }
 
-    public addOne(correlationId: string, data: TransducerDataSetV1,
+    public addOne(correlationId: string, data: ObjectDataSetV1,
         callback: (err: any) => void): void {
 
         let filter = {
@@ -127,7 +127,7 @@ export class TransducerDataMongoDbPersistence
         });
     }
 
-    public addBatch(correlationId: string, dataSet: TransducerDataSetV1[],
+    public addBatch(correlationId: string, dataSet: ObjectDataSetV1[],
         callback: (err: any) => void): void {
 
         if (dataSet == null || dataSet.length == 0) {

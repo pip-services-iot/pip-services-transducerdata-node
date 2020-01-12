@@ -12,9 +12,9 @@ import { FilterParamsSchema } from 'pip-services3-commons-node';
 import { PagingParamsSchema } from 'pip-services3-commons-node';
 import { DateTimeConverter } from 'pip-services3-commons-node';
 
-import { TransducerDataV1 } from '../data/version1/TransducerDataV1';
-import { TransducerDataV1Schema } from '../data/version1/TransducerDataV1Schema';
-import { TransducerDataSetV1 } from '../data/version1/TransducerDataSetV1';
+import { ObjectDataV1 } from '../data/version1/ObjectDataV1';
+import { ObjectDataV1Schema } from '../data/version1/ObjectDataV1Schema';
+import { ObjectDataSetV1 } from '../data/version1/ObjectDataSetV1';
 import { ITransducerDataController } from './ITransducerDataController';
 
 export class TransducerDataCommandSet extends CommandSet {
@@ -50,7 +50,7 @@ export class TransducerDataCommandSet extends CommandSet {
 		return new Command(
 			"add_data",
 			new ObjectSchema(true)
-				.withRequiredProperty('data', new TransducerDataV1Schema()),
+				.withRequiredProperty('data', new ObjectDataV1Schema()),
             (correlationId: string, args: Parameters, callback: (err: any, result: any) => void) => {
                 let data = args.get("data");
 			    this._logic.addData(correlationId, data, (err) => {
@@ -64,7 +64,7 @@ export class TransducerDataCommandSet extends CommandSet {
 		return new Command(
 			"add_data_batch",
 			new ObjectSchema(true)
-				.withRequiredProperty('data', new ArraySchema(new TransducerDataV1Schema())),
+				.withRequiredProperty('data', new ArraySchema(new ObjectDataV1Schema())),
             (correlationId: string, args: Parameters, callback: (err: any, result: any) => void) => {
                 let data = args.get("data");
 			    this._logic.addDataBatch(correlationId, data, (err) => {
