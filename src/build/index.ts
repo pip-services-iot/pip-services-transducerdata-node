@@ -1,0 +1,1 @@
+export { TransducerDataServiceFactory } from './TransducerDataServiceFactory';

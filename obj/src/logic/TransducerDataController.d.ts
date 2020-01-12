@@ -1,0 +1,33 @@
+import { ConfigParams } from 'pip-services3-commons-node';
+import { IConfigurable } from 'pip-services3-commons-node';
+import { IReferences } from 'pip-services3-commons-node';
+import { IReferenceable } from 'pip-services3-commons-node';
+import { FilterParams } from 'pip-services3-commons-node';
+import { PagingParams } from 'pip-services3-commons-node';
+import { DataPage } from 'pip-services3-commons-node';
+import { ICommandable } from 'pip-services3-commons-node';
+import { CommandSet } from 'pip-services3-commons-node';
+import { TransducerDataV1 } from '../data/version1/TransducerDataV1';
+import { TransducerDataSetV1 } from '../data/version1/TransducerDataSetV1';
+import { ITransducerDataController } from './ITransducerDataController';
+export declare class TransducerDataController implements IConfigurable, IReferenceable, ICommandable, ITransducerDataController {
+    private static _defaultConfig;
+    private _dependencyResolver;
+    private _persistence;
+    private _commandSet;
+    private _intervalMin;
+    private _interval;
+    configure(config: ConfigParams): void;
+    setReferences(references: IReferences): void;
+    getCommandSet(): CommandSet;
+    private getFilterArrayParam;
+    private filterValuesByIds;
+    private filterValuesByTypes;
+    private filterDataValues;
+    getData(correlationId: string, filter: FilterParams, paging: PagingParams, callback: (err: any, page: DataPage<TransducerDataSetV1>) => void): void;
+    private calculateStartTime;
+    private fixData;
+    addData(correlationId: string, data: TransducerDataV1, callback?: (err: any) => void): void;
+    addDataBatch(correlationId: string, data: TransducerDataV1[], callback?: (err: any) => void): void;
+    deleteData(correlationId: string, filter: FilterParams, callback?: (err: any) => void): void;
+}

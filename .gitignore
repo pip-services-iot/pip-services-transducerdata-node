@@ -1,0 +1,8 @@
+/dist
+/node_modules
+/npm-debug.log
+/.idea
+/data/transducer_data.test.json
+/data/transducer_data.json
+/obj/test
+/docker/id_rsa*
